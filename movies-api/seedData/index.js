@@ -1,10 +1,14 @@
 import userModel from '../api/users/userModel.js';
 import genreModel from '../api/genres/genreModel.js';
+import actorModel from '../api/actors/actorsModel.js';
 import users from './users.js';
+import actors from './actors.js';
 import genres from './genres.js';
 import dotenv from 'dotenv';
 import movieModel from '../api/movies/movieModel.js';
 import movies from './movies.js';
+import showModel from '../api/shows/showModel.js';
+import shows from './shows.js';
 
 dotenv.config();
 
@@ -18,6 +22,32 @@ export async function loadMovies() {
     console.info(`${movies.length} Movies were successfully stored.`);
   } catch (err) {
     console.error(`failed to Load movie Data: ${err}`);
+  }
+}
+
+// deletes all shows documents in collection and inserts test data
+export async function loadShows() {
+  console.log('load seed data');
+  console.log(shows.length);
+  try {
+    await showModel.deleteMany();
+    await showModel.collection.insertMany(shows);
+    console.info(`${shows.length} Shows were successfully stored.`);
+  } catch (err) {
+    console.error(`failed to Load show Data: ${err}`);
+  }
+}
+
+// deletes all actors documents in collection and inserts test data
+export async function loadActors() {
+  console.log('load seed data');
+  console.log(actors.length);
+  try {
+    await actorModel.deleteMany();
+    await actorModel.collection.insertMany(actors);
+    console.info(`${actors.length} Actors were successfully stored.`);
+  } catch (err) {
+    console.error(`failed to Load show Data: ${err}`);
   }
 }
 
@@ -49,4 +79,6 @@ async function loadGenres() {
     loadUsers();
     loadGenres();
     loadMovies();
+    loadShows();
+    loadActors();
   }

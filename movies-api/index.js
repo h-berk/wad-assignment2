@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies/index.js';
+import showsRouter from './api/shows/index.js';
+import actorsRouter from './api/actors/index.js';
 import './db/index.js';
 import './seedData/index.js';
 import usersRouter from './api/users/index.js';
@@ -29,6 +31,8 @@ app.use('/api/users', usersRouter);
 app.use(errHandler);
 app.use(passport.initialize());
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
+app.use('/api/actors', passport.authenticate('jwt', {session: false}), actorsRouter);
+app.use('/api/shows', passport.authenticate('jwt', {session: false}), showsRouter);
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);

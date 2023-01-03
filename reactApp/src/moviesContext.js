@@ -10,7 +10,7 @@ const MoviesContextProvider = (props) => {
   useEffect(() => {
     getMovies().then((result) => {
       setMovies(result)
-    });
+    }); 
   }, []);
 
   return (
